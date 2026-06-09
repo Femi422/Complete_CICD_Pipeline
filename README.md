@@ -36,17 +36,15 @@ ecommerce-app/
 5. Local vs production at a glance
 Local (Docker Compose)	Production (EKS)
 
-#########################
-# Quick start right now #
-#########################
+Quick start right now 
 bash
-# 1. Clone / enter your project
+ 1. Clone / enter your project
 cd ecommerce-app
 
-# 2. Start it
+ 2. Start it
 docker compose up --build
 
-# 3. Open browser
+3. Open browser
 open http://localhost
 
 
