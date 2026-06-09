@@ -1,0 +1,33 @@
+#Start the app only
+docker compose up --build
+# open http://localhost
+
+
+#Start app + monitoring stack
+docker compose -f docker-compose.yml -f docker-compose.monitoring.yml up --build
+# app        → http://localhost
+# Prometheus → http://localhost:9090
+# Grafana    → http://localhost:3000  (admin / admin)
+
+#Rebuild after Dockerfile changes
+docker compose up --build
+
+#Stop everything:
+docker compose down
+
+#View live logs:
+docker compose logs -f app
+
+#Shell into the running container:
+docker exec -it ecommerce-app sh
+
+
+#Quick start right now
+# 1. Clone / enter your project
+cd ecommerce-app
+
+# 2. Start it
+docker compose up --build
+
+# 3. Open browser
+open http://localhost
