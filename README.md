@@ -25,9 +25,10 @@ ecommerce-app/
 └── prometheus/
     └── prometheus.yml
 1. Sample HTML app (so you have something to see)
-src/index.html
+#################   
+#src/index.html #
+#################
 
-html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,9 +49,10 @@ html
   </main>
 </body>
 </html>
-src/products.html
 
-html
+#####################
+#src/products.html# #
+#####################
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,9 +77,10 @@ html
   <script src="assets/app.js"></script>
 </body>
 </html>
-src/assets/style.css
 
-css
+######################
+#src/assets/style.css#
+######################
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: system-ui, sans-serif; background: #f5f5f5; color: #222; }
 header { background: #1a1a2e; color: #fff; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
@@ -93,9 +96,10 @@ main h2 { margin-bottom: 1rem; }
 .card p { color: #555; margin-bottom: 1rem; }
 button { padding: .5rem 1rem; background: #534AB7; color: #fff; border: none; border-radius: 6px; cursor: pointer; }
 button:hover { background: #3C3489; }
-src/assets/app.js
 
-js
+###################
+#src/assets/app.js#
+###################
 document.querySelectorAll('button').forEach(btn => {
   btn.addEventListener('click', () => {
     btn.textContent = 'Added!';
@@ -106,10 +110,11 @@ document.querySelectorAll('button').forEach(btn => {
     }, 1500);
   });
 });
-2. Core docker-compose.yml
-This is all you need to run the app locally:
 
-yaml
+2. Core:
+#####################
+#docker-compose.yml #
+#####################
 version: "3.9"
 
 services:
@@ -128,12 +133,12 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
-The volumes mount means you edit files in src/ and just refresh your browser — no rebuild needed.
 
-3. Optional: docker-compose.monitoring.yml
-Run this alongside the core compose to get local Prometheus + Grafana:
 
-yaml
+3. Optional:
+###############################
+#docker-compose.monitoring.yml#
+###############################
 version: "3.9"
 
 services:
@@ -166,9 +171,10 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     depends_on:
       - prometheus
-prometheus/prometheus.yml
 
-yaml
+###########################
+#prometheus/prometheus.yml#
+###########################
 global:
   scrape_interval: 15s
 
@@ -176,35 +182,37 @@ scrape_configs:
   - job_name: ecommerce-nginx
     static_configs:
       - targets: ["nginx-exporter:9113"]
-4. Commands — everything you need day to day
-Start the app only:
 
-bash
+      
+
+
+4. Commands —
+#################################
+#everything you need day to day #
+#################################
 docker compose up --build
 # open http://localhost
-Start app + monitoring stack:
 
-bash
+Start app + monitoring stack:
 docker compose -f docker-compose.yml -f docker-compose.monitoring.yml up --build
 # app        → http://localhost
 # Prometheus → http://localhost:9090
 # Grafana    → http://localhost:3000  (admin / admin)
+
+
 Rebuild after Dockerfile changes:
-
-bash
 docker compose up --build
+
 Stop everything:
-
-bash
 docker compose down
+
 View live logs:
-
-bash
 docker compose logs -f app
-Shell into the running container:
 
-bash
+Shell into the running container:
 docker exec -it ecommerce-app sh
+
+
 5. Local vs production at a glance
 Local (Docker Compose)	Production (EKS)
 URL	http://localhost	AWS load balancer / your domain
@@ -212,7 +220,10 @@ Live edit	Yes — via volume mount	No — requires a new git push
 Replicas	1	2–10 (HPA)
 Monitoring	Optional local stack	Prometheus + Grafana in cluster
 TLS/HTTPS	No	Yes — via cert-manager + Ingress
-Quick start right now
+
+#########################
+# Quick start right now #
+#########################
 bash
 # 1. Clone / enter your project
 cd ecommerce-app
