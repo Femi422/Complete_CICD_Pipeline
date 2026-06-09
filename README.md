@@ -97,9 +97,9 @@ main h2 { margin-bottom: 1rem; }
 button { padding: .5rem 1rem; background: #534AB7; color: #fff; border: none; border-radius: 6px; cursor: pointer; }
 button:hover { background: #3C3489; }
 
-###################
-#src/assets/app.js#
-###################
+####################
+#src/assets/app.js #
+####################
 document.querySelectorAll('button').forEach(btn => {
   btn.addEventListener('click', () => {
     btn.textContent = 'Added!';
