@@ -1,0 +1,36 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: ecommerce-alerts
+  namespace: monitoring
+spec:
+  groups:
+    - name: ecommerce
+      rules:
+        - alert: HighErrorRate
+          expr: |
+            rate(nginx_http_requests_total{status=~"5.."}[5m]) /
+            rate(nginx_http_requests_total[5m]) > 0.05
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Error rate above 5% for 2 minutes"
+
+        - alert: PodCrashLooping
+          expr: rate(kube_pod_container_status_restarts_total[15m]) > 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Pod {{ $labels.pod }} is crash-looping"
+
+        - alert: HighMemoryUsage
+          expr: |
+            container_memory_usage_bytes{namespace="production"} /
+            container_spec_memory_limit_bytes > 0.85
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Memory usage above 85% in {{ $labels.pod }}"
