@@ -39,13 +39,13 @@ Local (Docker Compose)	Production (EKS)
 Quick start right now 
 bash
  1. Clone / enter your project
-cd ecommerce-app
+"cd ecommerce-app"
 
  2. Start it
-docker compose up --build
+"docker compose up --build"
 
 3. Open browser
-open http://localhost
+"open http://localhost"
 
 
 
